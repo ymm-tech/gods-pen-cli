@@ -1,0 +1,30 @@
+<template>
+  <div class="component">
+    hello world
+  </div>
+</template>
+
+<script>
+  import {VueExtend} from 'godspen-lib'
+
+  export default {
+    mixins: [VueExtend.mixin],
+    name: '<%= name %>',
+    label: process.env.LABEL,
+    style: process.env.STYLE,
+    props: {
+    },
+    computed: {
+    },
+    editorMethods: {
+    },
+    methods: {
+    }
+  }
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+  .component {
+    color: red;
+  }
+</style>

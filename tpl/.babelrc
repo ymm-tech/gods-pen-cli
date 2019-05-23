@@ -1,0 +1,17 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["> 0.5%", "Android > 4.3", "iOS > 7"]
+      }
+    }]
+  ],
+  "comments": true,
+  "env": {
+    "production": {
+      "plugins": [
+        ["transform-runtime", { "polyfill": false, "regenerator": false }]
+      ]
+    }
+  }
+}
