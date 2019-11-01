@@ -7,7 +7,8 @@
     "gods-pen-build": "bin/maliang-build",
     "gods-pen-create": "bin/maliang-create",
     "gods-pen-config": "bin/maliang-config",
-    "gods-pen-publish": "bin/maliang-publish"
+    "gods-pen-publish": "bin/maliang-publish",
+    "gods-pen-serve": "bin/maliang-serve"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "fs-extra": "^6.0.1",
     "glob": "^7.1.2",
     "inquirer": "^6.2.0",
+    "open": "^7.0.0",
     "ora": "^3.4.0",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
