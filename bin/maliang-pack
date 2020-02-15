@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+const skipBuild = process.argv.includes('--skip-build')
+require('../lib/maliang-build.js')({ pack: true, build: !skipBuild })
