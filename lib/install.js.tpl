@@ -40,7 +40,7 @@ const outOfDate = (() => {
   console.log('开始执行组件发布，请按照提示操作')
   if (outOfDate) {
     console.log('gods-pen 工具版本过低或未安装，将为您升级到最新版本')
-    await asyncExec('npm', ['install', 'gods-pen-cli'])
+    await asyncExec('npm', ['install', 'gods-pen-cli', '-g'])
   }
   
   await asyncExec('gods-pen', ['publish'])
