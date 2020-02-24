@@ -1,4 +1,15 @@
 #!/usr/bin/env node
+const commander = require('commander')
 
-const skipBuild = process.argv.includes('--skip-build')
-require('../lib/maliang-build.js')({ pack: true, build: !skipBuild })
+commander
+  .option('-t, --token [token]', '指定鉴权token')
+  .option('--skip-build', '跳过构建')
+  .option('--skip-push', '不推送到商城')
+  .option('--verbose', '打印调试日志')
+  .parse(process.argv)
+
+let skipBuild = commander['skipBuild']
+let skipPush = commander['skipPush']
+let token = commander['token']
+
+require('../lib/maliang-build.js')({ pack: true, build: !skipBuild, push: !skipPush, token })

@@ -21,7 +21,7 @@ function normalizeName (name) {
   return name.replace(/[-_]+(\w)/g, (m, p) => p.toUpperCase())
 }
 
-const COMPONENT_PATH = `__NAMESPACE__/${normalizeName(pkg.name)}@${pkg.version}`
+const COMPONENT_PATH = '__NAMESPACE__/__NAME__@__VERSION__'
 
 let config = {
   module: {
