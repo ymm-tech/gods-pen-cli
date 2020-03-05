@@ -1,6 +1,6 @@
 {
   "name": "gods-pen-cli",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "这是码良命令行工具，目前包含码良组件过程中的所有工具",
   "bin": {
     "gods-pen": "bin/maliang",
