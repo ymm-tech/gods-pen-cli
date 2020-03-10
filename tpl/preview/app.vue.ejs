@@ -20,84 +20,93 @@
 </template>
 
 <script>
-import com from '../src/index'
-import Loading from './components/Loading'
-import example from '../src/example'
-import ImgViewer from './components/ImgViewer'
-import Toast from './components/Toast'
-import MessageBox from 'mint-ui/message-box/'
-import 'mint-ui/message-box/style.css'
+  import com from '../src/index'
+  import Loading from './components/Loading'
+  import example from '../src/example'
+  import ImgViewer from './components/ImgViewer'
+  import Toast from './components/Toast'
+  import MessageBox from 'mint-ui/message-box/'
+  import 'mint-ui/message-box/style.css'
 
-export default {
-  components: {Toast, Loading, ImgViewer, example, com},
-  created () {
-    var that = this
-    window.msgBox = MessageBox
-    window.alert = function (msg, fn) {
-      MessageBox.close()
-      var m, t
-      if (typeof msg === 'object') {
-        m = msg.msg
-        t = msg.title
-      } else {
-        m = String(msg)
-        t = '提示'
+  export default {
+    components: {
+      Toast,
+      Loading,
+      ImgViewer,
+      example,
+      com
+    },
+    created() {
+      var that = this
+      window.msgBox = MessageBox
+      window.alert = function (msg, fn) {
+        MessageBox.close()
+        var m, t
+        if (typeof msg === 'object') {
+          m = msg.msg
+          t = msg.title
+        } else {
+          m = String(msg)
+          t = '提示'
+        }
+        MessageBox.alert(m, t).then(action => {
+          typeof fn === 'function' && fn(action)
+        })
       }
-      MessageBox.alert(m, t).then(action => {
-        typeof fn === 'function' && fn(action)
-      })
-    }
-    window.confirm = function (msg, fn, re) {
-      MessageBox.close()
-      var m, t
-      if (typeof msg === 'object') {
-        m = msg.msg
-        t = msg.title
-      } else {
-        m = String(msg)
-        t = '提示'
+      window.confirm = function (msg, fn, re) {
+        MessageBox.close()
+        var m, t
+        if (typeof msg === 'object') {
+          m = msg.msg
+          t = msg.title
+        } else {
+          m = String(msg)
+          t = '提示'
+        }
+        MessageBox.confirm(m, t).then(action => {
+          typeof fn === 'function' && fn(action)
+        }).catch(action => {
+          typeof re === 'function' && re(action)
+        })
       }
-      MessageBox.confirm(m, t).then(action => {
-        typeof fn === 'function' && fn(action)
-      }).catch(action => {
-        typeof re === 'function' && re(action)
-      })
-    }
-    window.prompt = function (msg, fn, re) {
-      MessageBox.close()
-      var m, t
-      if (typeof msg === 'object') {
-        m = msg.msg
-        t = msg.title
-      } else {
-        m = String(msg)
-        t = '提示'
+      window.prompt = function (msg, fn, re) {
+        MessageBox.close()
+        var m, t
+        if (typeof msg === 'object') {
+          m = msg.msg
+          t = msg.title
+        } else {
+          m = String(msg)
+          t = '提示'
+        }
+        MessageBox.prompt(m, t).then(val => {
+          typeof fn === 'function' && fn(val)
+        }).catch(action => {
+          typeof re === 'function' && re(action)
+        })
       }
-      MessageBox.prompt(m, t).then(val => {
-        typeof fn === 'function' && fn(val)
-      }).catch(action => {
-        typeof re === 'function' && re(action)
-      })
-    }
-    window.loading = function (hide) {
-      if (!that.$refs['loading']) return
-      if (!hide) that.$refs['loading'].open()
-      else that.$refs['loading'].hide()
-    }
-    window.toast = function (msg, fn) {
-      if (!that.$refs['toast']) return
-      that.$refs['toast'].render({msg, fn})
-    }
-    window.viewImg = (imgs, index) => {
-      if (!that.$refs.imgViewer) return
-      that.$refs.imgViewer.open(imgs, index)
+      window.loading = function (hide) {
+        if (!that.$refs['loading']) return
+        if (!hide) that.$refs['loading'].open()
+        else that.$refs['loading'].hide()
+      }
+      window.toast = function (msg, fn) {
+        if (!that.$refs['toast']) return
+        that.$refs['toast'].render({
+          msg,
+          fn
+        })
+      }
+      window.viewImg = (imgs, index) => {
+        if (!that.$refs.imgViewer) return
+        that.$refs.imgViewer.open(imgs, index)
+      }
     }
   }
-}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-@require './style.css';
+  @require './style.css';
 
 html,body  {
   margin: 0;
@@ -127,14 +136,14 @@ html,body  {
       <div class="title">组件</div>
       <div class="app">
         <div class="node">
-          <com v-bind="componentProps"></com>
+          <com v-bind="nodeInfo"></com>
         </div>
       </div>
     </div>
     <div class="block editor">
       <div class="title">编辑面板</div>
       <div class="node">
-        <editor :component-info="componentProps"></editor>
+        <editor :component-info="nodeInfo"></editor>
       </div>
     </div>
     <toast ref='toast' :compromise="true"></toast>
@@ -144,101 +153,111 @@ html,body  {
 </template>
 
 <script>
-import com from '../src/index'
-import Loading from './components/Loading'
-import example from '../src/example'
-import Editor from '../editor/index'
-import ImgViewer from './components/ImgViewer'
-import Toast from './components/Toast'
-import MessageBox from 'mint-ui/message-box/'
-import 'mint-ui/message-box/style.css'
+  import com from '../src/index'
+  import Loading from './components/Loading'
+  import example from '../src/example'
+  import Editor from '../editor/index'
+  import ImgViewer from './components/ImgViewer'
+  import Toast from './components/Toast'
+  import MessageBox from 'mint-ui/message-box/'
+  import 'mint-ui/message-box/style.css'
 
-export default {
-  components: {Toast, Loading, ImgViewer, example, com, Editor},
-  name: 'p',
-  created () {
-    var that = this
-    window.msgBox = MessageBox
-    window.alert = function (msg, fn) {
-      MessageBox.close()
-      var m, t
-      if (typeof msg === 'object') {
-        m = msg.msg
-        t = msg.title
-      } else {
-        m = String(msg)
-        t = '提示'
+  export default {
+    components: {
+      Toast,
+      Loading,
+      ImgViewer,
+      example,
+      com,
+      Editor
+    },
+    name: 'p',
+    created() {
+      var that = this
+      window.msgBox = MessageBox
+      window.alert = function (msg, fn) {
+        MessageBox.close()
+        var m, t
+        if (typeof msg === 'object') {
+          m = msg.msg
+          t = msg.title
+        } else {
+          m = String(msg)
+          t = '提示'
+        }
+        MessageBox.alert(m, t).then(action => {
+          typeof fn === 'function' && fn(action)
+        })
       }
-      MessageBox.alert(m, t).then(action => {
-        typeof fn === 'function' && fn(action)
-      })
-    }
-    window.confirm = function (msg, fn, re) {
-      MessageBox.close()
-      var m, t
-      if (typeof msg === 'object') {
-        m = msg.msg
-        t = msg.title
-      } else {
-        m = String(msg)
-        t = '提示'
+      window.confirm = function (msg, fn, re) {
+        MessageBox.close()
+        var m, t
+        if (typeof msg === 'object') {
+          m = msg.msg
+          t = msg.title
+        } else {
+          m = String(msg)
+          t = '提示'
+        }
+        MessageBox.confirm(m, t).then(action => {
+          typeof fn === 'function' && fn(action)
+        }).catch(action => {
+          typeof re === 'function' && re(action)
+        })
       }
-      MessageBox.confirm(m, t).then(action => {
-        typeof fn === 'function' && fn(action)
-      }).catch(action => {
-        typeof re === 'function' && re(action)
-      })
-    }
-    window.prompt = function (msg, fn, re) {
-      MessageBox.close()
-      var m, t
-      if (typeof msg === 'object') {
-        m = msg.msg
-        t = msg.title
-      } else {
-        m = String(msg)
-        t = '提示'
+      window.prompt = function (msg, fn, re) {
+        MessageBox.close()
+        var m, t
+        if (typeof msg === 'object') {
+          m = msg.msg
+          t = msg.title
+        } else {
+          m = String(msg)
+          t = '提示'
+        }
+        MessageBox.prompt(m, t).then(val => {
+          typeof fn === 'function' && fn(val)
+        }).catch(action => {
+          typeof re === 'function' && re(action)
+        })
       }
-      MessageBox.prompt(m, t).then(val => {
-        typeof fn === 'function' && fn(val)
-      }).catch(action => {
-        typeof re === 'function' && re(action)
-      })
-    }
-    window.loading = function (hide) {
-      if (!that.$refs['loading']) return
-      if (!hide) that.$refs['loading'].open()
-      else that.$refs['loading'].hide()
-    }
-    window.toast = function (msg, fn) {
-      if (!that.$refs['toast']) return
-      that.$refs['toast'].render({msg, fn})
-    }
-    window.viewImg = (imgs, index) => {
-      if (!that.$refs.imgViewer) return
-      that.$refs.imgViewer.open(imgs, index)
-    }
-  },
-  data () {
-    return {
-      componentProps: {
-        deltaY: 0,
-        imgSize: '',
-        scrollSpeed: '',
-        navbars: []
-      },
-    }
-  },
-  methods: {
-    getComponent (order) {
-      return this.$refs.ones[order - 1]
+      window.loading = function (hide) {
+        if (!that.$refs['loading']) return
+        if (!hide) that.$refs['loading'].open()
+        else that.$refs['loading'].hide()
+      }
+      window.toast = function (msg, fn) {
+        if (!that.$refs['toast']) return
+        that.$refs['toast'].render({
+          msg,
+          fn
+        })
+      }
+      window.viewImg = (imgs, index) => {
+        if (!that.$refs.imgViewer) return
+        that.$refs.imgViewer.open(imgs, index)
+      }
+    },
+    data() {
+      return {
+        nodeInfo: {
+          deltaY: 0,
+          imgSize: '',
+          scrollSpeed: '',
+          navbars: []
+        },
+      }
+    },
+    methods: {
+      getComponent(order) {
+        return this.$refs.ones[order - 1]
+      }
     }
   }
-}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
-@require './style.css';
+  @require './style.css';
 
 html, body {
   margin: 0;

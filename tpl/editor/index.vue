@@ -1,9 +1,7 @@
 <template>
   <div class="component-editor">
-    <el-card class="box-card" header='hello'>
-      <div>
-        say something
-      </div>
+    <el-card class="box-card" header="hello">
+      <div>组件的属性编辑器，你可能没有提供，如果不需要特殊编辑器，你可以删除这段代码</div>
     </el-card>
   </div>
 </template>
