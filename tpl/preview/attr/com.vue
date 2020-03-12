@@ -1,5 +1,5 @@
 <template>
-  <el-input v-model="val"></el-input>
+  <el-input v-model="content"></el-input>
 </template>
 
 <script>
@@ -8,7 +8,7 @@
     data () {
       return {}
     },
-    props: ['val'],
+    props: ['content'],
     computed: {
     },
     mounted: function () {
@@ -18,5 +18,4 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-</style>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped></style>

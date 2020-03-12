@@ -1,16 +1,18 @@
 import './lib'
 import Vue from 'vue'
 import App from './app'
-<% if (useEditor) { %>
+import VueDragResize from 'vue-drag-resize'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import AttrComponent from './attr'
 window.Vue = Vue
+
 Vue.use(ElementUI)
 Vue.use(AttrComponent)
-<% } %>
+Vue.component('vue-drag-resize', VueDragResize)
+
 new Vue(App).$mount('#app')
-<% if (useEditor) { %>
+
 console.info('不要慌，"Method "$confirm" conflicts with an existing Vue instance method ..."错误完全在控制中，请忽略')
 console.log(`
           
@@ -38,4 +40,3 @@ console.log(`
 8 888888888P'          \`8888888P'     8            \`Yo       8 8888                 8 888888888P   8 888888888888           .8'       \`8. \`88888. 8 8888         8 8888     \`88. .8'       \`8. \`88888.  8 8888 8 888888888P'      
 
 `)
-<% } %>

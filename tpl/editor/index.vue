@@ -1,8 +1,6 @@
 <template>
   <div class="component-editor">
-    <el-card class="box-card" header="hello">
-      <div>组件的属性编辑器，你可能没有提供，如果不需要特殊编辑器，你可以删除这段代码</div>
-    </el-card>
+    你可以在这里自己开发属性编辑器，扩展更高级的功能
   </div>
 </template>
 
@@ -10,24 +8,28 @@
   export default {
     name: 'maliangeditor',
     props: {
+      // 编辑器会传递给编辑面板组件的属性值，编辑器可以修改这些值来达到控制组件数据的作用
       componentInfo: { // 固定字段，收集所有属性值
         type: [Object],
         default () {
-          return {}
+          return {
+          }
         }
       }
     },
     data: function () {
       return {
+        usedatasource: false,
       }
     },
     computed: {
     },
     watch: {
-      componentInfo: {
-        hanlder: function (v) {
-          console.log('editor index', v)
+      'componentInfo': {
+        handler (v) {
+          console.log(v)
         },
+        deep: true
       }
     },
     mounted: function () {
